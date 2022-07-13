@@ -9,6 +9,8 @@
     "daypilot-pro-react": "https://npm.daypilot.org/daypilot-pro-react/trial/2021.2.4990.tar.gz",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router": "^6.3.0",
+    "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },

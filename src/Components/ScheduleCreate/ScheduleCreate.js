@@ -8,10 +8,6 @@ class Scheduler extends Component {
     super(props);
 
     this.state = {
-      startDate: "2018-05-01",
-      days: 31,
-      scale: "Day",
-      // ...
       startDate: DayPilot.Date.today().firstDayOfWeek(),
       days: 7,
       scale: "Hour",
@@ -22,7 +18,7 @@ class Scheduler extends Component {
       cellWidthSpec: "auto",
       resources: [
         { name: "Brian", id: "1" },
-        { name: "Emma", id: "2" },
+        { name: "perfect & beautiful Emma", id: "2" },
         { name: "Quoc", id: "3" },
         { name: "Jillian", id: "4" },
         { name: "Kevin", id: "5" },
@@ -62,7 +58,7 @@ class Scheduler extends Component {
         break;
       case "day":
         this.setState({
-          startDate: DayPilot.Date.today(),
+          startDate: DayPilot.Date.today().firstDayOfWeek(),
           days: 1,
           scale: "Hour",
         });
@@ -82,22 +78,41 @@ class Scheduler extends Component {
         <DayPilotScheduler
           {...config}
           onEventResized={(args) => {
-            console.log(
-              "Event resized: ",
-              args.e.data.id,
-              args.newStart,
-              args.newEnd
+            let id = args.e.data._id;
+            const promiseEvents = axios.put(
+              `http://localhost:8080/schedule/${id}`,
+              {
+                start: args.newStart,
+                end: args.newEnd,
+              }
             );
-            console.log("Event resized: " + args.e.data.text);
+
+            // console.log(
+            //   "Event resized: ",
+            //   args.e.data.id,
+            //   args.newStart,
+            //   args.newEnd
+            // );
+            // console.log("Event resized: " + args.e.data.text);
           }}
           onEventMoved={(args) => {
-            console.log(
-              "Event moved: ",
-              args.e.data.id,
-              args.newStart,
-              args.newEnd,
-              args.newResource
+            let id = args.e.data._id;
+            const promiseEvents = axios.put(
+              `http://localhost:8080/schedule/${id}`,
+              {
+                id: args.e.data.id,
+                start: args.newStart,
+                end: args.newEnd,
+                resource: args.newResource,
+              }
             );
+            // console.log(
+            //   "Event moved: ",
+            //   args.e.data.id,
+            //   args.newStart,
+            //   args.newEnd,
+            //   args.newResource
+            // );
           }}
           onTimeRangeSelected={(args) => {
             DayPilot.Modal.prompt("New event name", "Event").then((modal) => {
@@ -112,13 +127,13 @@ class Scheduler extends Component {
                 end: args.end.value,
                 resource: parseInt(args.resource),
               });
-              console.log({
-                id: DayPilot.guid(),
-                text: modal.result,
-                start: args.start.value,
-                end: args.end.value,
-                resource: args.resource,
-              });
+              // console.log({
+              //   id: DayPilot.guid(),
+              //   text: modal.result,
+              //   start: args.start.value,
+              //   end: args.end.value,
+              //   resource: args.resource,
+              // });
             });
           }}
           ref={(component) => {

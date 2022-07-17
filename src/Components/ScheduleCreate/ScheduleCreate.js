@@ -8,6 +8,24 @@ class Scheduler extends Component {
     super(props);
 
     this.state = {
+      contextMenu: new DayPilot.Menu({
+        items: [
+          {
+            text: "Delete",
+            onClick: (args) => {
+              let id = args.source.data._id;
+              console.log(id);
+              const promiseEvents = axios.delete(
+                `http://localhost:8080/schedule/${id}`
+                // {
+                //   id: args.e.data.id,
+                // }
+              );
+            },
+          },
+        ],
+      }),
+
       startDate: DayPilot.Date.today().firstDayOfWeek(),
       days: 7,
       scale: "Hour",
@@ -24,6 +42,7 @@ class Scheduler extends Component {
         { name: "Kevin", id: "5" },
       ],
       events: [],
+      // eventDeleteHandling: "Update",
     };
   }
 

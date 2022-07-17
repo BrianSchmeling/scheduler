@@ -16,7 +16,7 @@ class Scheduler extends Component {
               let id = args.source.data._id;
               console.log(id);
               const promiseEvents = axios.delete(
-                `http://localhost:8080/schedule/${id}`
+                `http://https://scheduler-project-backend.herokuapp.com//schedule/${id}`
                 // {
                 //   id: args.e.data.id,
                 // }
@@ -53,8 +53,10 @@ class Scheduler extends Component {
   async loadData() {
     const start = this.scheduler.visibleStart();
     const end = this.scheduler.visibleEnd();
-    // const promiseResources = axios.get("http:localhost:8080/schedule");
-    const promiseEvents = axios.get("http://localhost:8080/schedule");
+    // const promiseResources = axios.get("https://scheduler-project-backend.herokuapp.com//schedule");
+    const promiseEvents = axios.get(
+      "https://scheduler-project-backend.herokuapp.com//schedule"
+    );
     const [{ data: events }] = await Promise.all([
       // promiseResources,
       promiseEvents,
@@ -99,7 +101,7 @@ class Scheduler extends Component {
           onEventResized={(args) => {
             let id = args.e.data._id;
             const promiseEvents = axios.put(
-              `http://localhost:8080/schedule/${id}`,
+              `https://scheduler-project-backend.herokuapp.com//schedule/${id}`,
               {
                 start: args.newStart,
                 end: args.newEnd,
@@ -117,7 +119,7 @@ class Scheduler extends Component {
           onEventMoved={(args) => {
             let id = args.e.data._id;
             const promiseEvents = axios.put(
-              `http://localhost:8080/schedule/${id}`,
+              `https://scheduler-project-backend.herokuapp.com//schedule/${id}`,
               {
                 id: args.e.data.id,
                 start: args.newStart,
@@ -139,13 +141,16 @@ class Scheduler extends Component {
               if (!modal.result) {
                 return;
               }
-              axios.post(`http://localhost:8080/schedule/add`, {
-                id: DayPilot.guid(),
-                text: modal.result,
-                start: args.start.value,
-                end: args.end.value,
-                resource: parseInt(args.resource),
-              });
+              axios.post(
+                `https://scheduler-project-backend.herokuapp.com//schedule/add`,
+                {
+                  id: DayPilot.guid(),
+                  text: modal.result,
+                  start: args.start.value,
+                  end: args.end.value,
+                  resource: parseInt(args.resource),
+                }
+              );
               // console.log({
               //   id: DayPilot.guid(),
               //   text: modal.result,

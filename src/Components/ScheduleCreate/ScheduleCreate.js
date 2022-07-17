@@ -16,7 +16,7 @@ class Scheduler extends Component {
               let id = args.source.data._id;
               console.log(id);
               const promiseEvents = axios.delete(
-                `http://https://scheduler-project-backend.herokuapp.com/schedule/${id}`
+                `https://scheduler-project-backend.herokuapp.com/schedule/${id}`
                 // {
                 //   id: args.e.data.id,
                 // }

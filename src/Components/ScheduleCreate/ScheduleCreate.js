@@ -34,13 +34,7 @@ class Scheduler extends Component {
         { groupBy: "Hour" },
       ],
       cellWidthSpec: "auto",
-      resources: [
-        { name: "Brian", id: "1" },
-        { name: "perfect & beautiful Emma", id: "2" },
-        { name: "Quoc", id: "3" },
-        { name: "Jillian", id: "4" },
-        { name: "Kevin", id: "5" },
-      ],
+      resources: [],
       events: [],
       // eventDeleteHandling: "Update",
     };
@@ -53,12 +47,14 @@ class Scheduler extends Component {
   async loadData() {
     const start = this.scheduler.visibleStart();
     const end = this.scheduler.visibleEnd();
-    // const promiseResources = axios.get("https://scheduler-project-backend.herokuapp.com/schedule");
+    const promiseResources = axios.get(
+      "https://scheduler-project-backend.herokuapp.com/employee"
+    );
     const promiseEvents = axios.get(
       "https://scheduler-project-backend.herokuapp.com/schedule"
     );
-    const [{ data: events }] = await Promise.all([
-      // promiseResources,
+    const [{ data: events }, { data: resources }] = await Promise.all([
+      promiseResources,
       promiseEvents,
     ]);
 

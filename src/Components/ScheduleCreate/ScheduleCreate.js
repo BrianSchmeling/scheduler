@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { DayPilot, DayPilotScheduler } from "daypilot-pro-react";
 import Zoom from "./Zoom";
+import AddEmployee from "./AddEmployee";
 import axios from "axios";
 
 class Scheduler extends Component {
@@ -93,76 +94,57 @@ class Scheduler extends Component {
     return (
       <div>
         <div>
-          <Zoom onChange={(args) => this.zoomChange(args)} />
-        </div>
-        <DayPilotScheduler
-          {...config}
-          onEventResized={(args) => {
-            let id = args.e.data._id;
-            const promiseEvents = axios.put(
-              `https://scheduler-project-backend.herokuapp.com/schedule/${id}`,
-              {
-                start: args.newStart,
-                end: args.newEnd,
-              }
-            );
-
-            // console.log(
-            //   "Event resized: ",
-            //   args.e.data.id,
-            //   args.newStart,
-            //   args.newEnd
-            // );
-            // console.log("Event resized: " + args.e.data.text);
-          }}
-          onEventMoved={(args) => {
-            let id = args.e.data._id;
-            const promiseEvents = axios.put(
-              `https://scheduler-project-backend.herokuapp.com/schedule/${id}`,
-              {
-                id: args.e.data.id,
-                start: args.newStart,
-                end: args.newEnd,
-                resource: args.newResource,
-              }
-            );
-            // console.log(
-            //   "Event moved: ",
-            //   args.e.data.id,
-            //   args.newStart,
-            //   args.newEnd,
-            //   args.newResource
-            // );
-          }}
-          onTimeRangeSelected={(args) => {
-            DayPilot.Modal.prompt("New event name", "Event").then((modal) => {
-              // this.scheduler.clearSelection();
-              if (!modal.result) {
-                return;
-              }
-              axios.post(
-                `https://scheduler-project-backend.herokuapp.com/schedule/add`,
+          <div>
+            <Zoom onChange={(args) => this.zoomChange(args)} />
+          </div>
+          <DayPilotScheduler
+            {...config}
+            onEventResized={(args) => {
+              let id = args.e.data._id;
+              const promiseEvents = axios.put(
+                `https://scheduler-project-backend.herokuapp.com/schedule/${id}`,
                 {
-                  id: DayPilot.guid(),
-                  text: modal.result,
-                  start: args.start.value,
-                  end: args.end.value,
-                  resource: parseInt(args.resource),
+                  start: args.newStart,
+                  end: args.newEnd,
                 }
               );
-              // console.log({
-              //   id: DayPilot.guid(),
-              //   text: modal.result,
-              //   start: args.start.value,
-              //   end: args.end.value,
-              //   resource: args.resource,
-              // });
-            });
-          }}
-          ref={(component) => {
-            this.scheduler = component && component.control;
-          }}
-        />
+            }}
+            onEventMoved={(args) => {
+              let id = args.e.data._id;
+              const promiseEvents = axios.put(
+                `https://scheduler-project-backend.herokuapp.com/schedule/${id}`,
+                {
+                  id: args.e.data.id,
+                  start: args.newStart,
+                  end: args.newEnd,
+                  resource: args.newResource,
+                }
+              );
+            }}
+            onTimeRangeSelected={(args) => {
+              DayPilot.Modal.prompt("New event name", "Event").then((modal) => {
+                // this.scheduler.clearSelection();
+                if (!modal.result) {
+                  return;
+                }
+                axios.post(
+                  `https://scheduler-project-backend.herokuapp.com/schedule/add`,
+                  {
+                    id: DayPilot.guid(),
+                    text: modal.result,
+                    start: args.start.value,
+                    end: args.end.value,
+                    resource: parseInt(args.resource),
+                  }
+                );
+              });
+            }}
+            ref={(component) => {
+              this.scheduler = component && component.control;
+            }}
+          />
+        </div>
+        <AddEmployee />
       </div>
     );
   }

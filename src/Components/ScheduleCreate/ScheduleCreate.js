@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { DayPilot, DayPilotScheduler } from "daypilot-pro-react";
 import Zoom from "./Zoom";
 import AddEmployee from "./AddEmployee";
+import DeleteEmployee from "./DeleteEmployee";
 import axios from "axios";
 
 class Scheduler extends Component {
@@ -145,6 +146,7 @@ class Scheduler extends Component {
           />
         </div>
         <AddEmployee />
+        <DeleteEmployee />
       </div>
     );
   }

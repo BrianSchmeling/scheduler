@@ -54,11 +54,12 @@ class Scheduler extends Component {
       "https://scheduler-project-backend.herokuapp.com/schedule"
     );
     const [{ data: events }, { data: resources }] = await Promise.all([
-      promiseResources,
       promiseEvents,
+      promiseResources,
     ]);
 
     this.state.resources = resources;
+    console.log(this.state.resources);
 
     const shifts = [
       ...new Map(events.map((shift) => [shift.id, shift])).values(),

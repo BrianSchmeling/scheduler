@@ -16,7 +16,7 @@ class Scheduler extends Component {
             text: "Delete",
             onClick: (args) => {
               let id = args.source.data._id;
-              console.log(id);
+              // console.log(id);
               const promiseEvents = axios.delete(
                 `https://scheduler-project-backend.herokuapp.com/schedule/${id}`
                 // {
@@ -64,7 +64,7 @@ class Scheduler extends Component {
     ]);
 
     this.state.resources = resources;
-    console.log(this.state.resources);
+    // console.log(this.state.resources);
 
     const shifts = [
       ...new Map(events.map((shift) => [shift.id, shift])).values(),
@@ -72,7 +72,46 @@ class Scheduler extends Component {
     this.state.events = shifts;
   }
 
+  clickLastDay(args) {
+    const next = this.state.startDate.addDays(-1);
+    this.setState({
+      startDate: next,
+    });
+  }
+
+  clickNextDay() {
+    const next = this.state.startDate.addDays(1);
+    this.setState({
+      startDate: next,
+    });
+  }
+
+  dayBtns = () => {
+    if (this.state.days === 1) {
+      return (
+        <div>
+          <button
+            onClick={(args) => {
+              this.clickLastDay(args);
+              // console.log(args);
+            }}
+          >
+            Previous
+          </button>
+          <button
+            onClick={(args) => {
+              this.clickNextDay(args);
+            }}
+          >
+            Next
+          </button>
+        </div>
+      );
+    }
+  };
+
   zoomChange(args) {
+    // console.log(args);
     switch (args.level) {
       case "week":
         this.setState({
@@ -99,9 +138,25 @@ class Scheduler extends Component {
       <div>
         <div>
           <div>
-            <Zoom onChange={(args) => this.zoomChange(args)} />
+            <Zoom onChange={(args) => this.zoomChange(args)}>
+              {/* <button
+                onClick={(args) => {
+                  this.clickLastDay(args);
+                  console.log(args);
+                }}
+              >
+                Previous
+              </button>
+              <button
+                onClick={(args) => {
+                  this.clickNextDay(args);
+                }}
+              >
+                Next
+              </button> */}
+            </Zoom>
           </div>
-
+          <this.dayBtns />
           <DayPilotScheduler
             {...config}
             onEventResized={(args) => {

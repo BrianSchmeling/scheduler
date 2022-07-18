@@ -26,7 +26,7 @@ class AddEmployee extends Component {
   render() {
     return (
       <span>
-        <button onClick={this.addEmployee}>Press me!</button>
+        <button onClick={this.addEmployee}>Add Employee</button>
       </span>
     );
   }

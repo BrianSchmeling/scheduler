@@ -35,7 +35,10 @@ class Scheduler extends Component {
         { groupBy: "Day", format: "dddd M/d/yyyy" },
         { groupBy: "Hour" },
       ],
-      cellWidthSpec: "auto",
+      rowHeaderColumns: [{ text: "Name", display: "name" }],
+      rowHeaderColumnDefaultWidth: 250,
+      width: "1210px",
+      cellwidth: "50px",
       resources: [],
       events: [],
       // eventDeleteHandling: "Update",
@@ -98,6 +101,7 @@ class Scheduler extends Component {
           <div>
             <Zoom onChange={(args) => this.zoomChange(args)} />
           </div>
+
           <DayPilotScheduler
             {...config}
             onEventResized={(args) => {

@@ -58,6 +58,8 @@ class Scheduler extends Component {
       promiseEvents,
     ]);
 
+    this.state.resources = resources;
+
     const shifts = [
       ...new Map(events.map((shift) => [shift.id, shift])).values(),
     ];

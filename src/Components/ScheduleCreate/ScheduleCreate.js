@@ -3,6 +3,7 @@ import { DayPilot, DayPilotScheduler } from "daypilot-pro-react";
 import Zoom from "./Zoom";
 import AddEmployee from "./AddEmployee";
 import DeleteEmployee from "./DeleteEmployee";
+import Nav from "../NavBar/NavBar";
 import axios from "axios";
 
 class Scheduler extends Component {
@@ -91,6 +92,7 @@ class Scheduler extends Component {
       return (
         <div>
           <button
+            className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
             onClick={(args) => {
               this.clickLastDay(args);
               // console.log(args);
@@ -99,6 +101,7 @@ class Scheduler extends Component {
             Previous
           </button>
           <button
+            className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
             onClick={(args) => {
               this.clickNextDay(args);
             }}
@@ -136,6 +139,7 @@ class Scheduler extends Component {
     const { ...config } = this.state;
     return (
       <div>
+        <Nav />
         <div>
           <div>
             <Zoom onChange={(args) => this.zoomChange(args)}>

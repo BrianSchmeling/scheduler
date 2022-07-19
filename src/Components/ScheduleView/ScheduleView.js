@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { DayPilot, DayPilotScheduler } from "daypilot-pro-react";
+import Nav from "../NavBar/NavBar";
 import axios from "axios";
 
 class Scheduler extends Component {
@@ -69,10 +70,11 @@ class Scheduler extends Component {
     const { ...config } = this.state;
     return (
       <div>
+        <Nav />
         {/* <div>
           <DayChooser onChange={(args) => this.zoomChange(args)} />
         </div> */}
-        <div>
+        <div className="flex items-center justify-center my-16">
           <DayPilotScheduler
             {...config}
             ref={(component) => {
@@ -80,20 +82,24 @@ class Scheduler extends Component {
             }}
           />
         </div>
-        <button
-          onClick={() => {
-            this.clickLastDay();
-          }}
-        >
-          Previous
-        </button>
-        <button
-          onClick={() => {
-            this.clickNextDay();
-          }}
-        >
-          Next
-        </button>
+        <div className="flex items-center justify-center my-16">
+          <button
+            className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+            onClick={() => {
+              this.clickLastDay();
+            }}
+          >
+            Previous
+          </button>
+          <button
+            className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+            onClick={() => {
+              this.clickNextDay();
+            }}
+          >
+            Next
+          </button>
+        </div>
       </div>
     );
   }

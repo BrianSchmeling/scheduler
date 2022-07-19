@@ -8,7 +8,7 @@ import axios from "axios";
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <header></header>
       <main>
         <Routes>

@@ -44,12 +44,12 @@ class Scheduler extends Component {
     ]);
 
     this.state.resources = resources;
-    console.log(this.state.resources);
 
     const shifts = [
       ...new Map(events.map((shift) => [shift.id, shift])).values(),
     ];
     this.state.events = shifts;
+    console.log(this.state.events);
   }
 
   clickLastDay() {

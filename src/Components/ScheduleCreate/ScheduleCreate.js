@@ -162,54 +162,56 @@ class Scheduler extends Component {
               </button> */}
             </Zoom>
           </div>
-          {/* <div className="flex items-center justify-center my-16"> */}
-          <DayPilotScheduler
-            {...config}
-            onEventResized={(args) => {
-              let id = args.e.data._id;
-              const promiseEvents = axios.put(
-                `https://scheduler-project-backend.herokuapp.com/schedule/${id}`,
-                {
-                  start: args.newStart,
-                  end: args.newEnd,
-                }
-              );
-            }}
-            onEventMoved={(args) => {
-              let id = args.e.data._id;
-              const promiseEvents = axios.put(
-                `https://scheduler-project-backend.herokuapp.com/schedule/${id}`,
-                {
-                  id: args.e.data.id,
-                  start: args.newStart,
-                  end: args.newEnd,
-                  resource: args.newResource,
-                }
-              );
-            }}
-            onTimeRangeSelected={(args) => {
-              DayPilot.Modal.prompt("New event name", "Event").then((modal) => {
-                // this.scheduler.clearSelection();
-                if (!modal.result) {
-                  return;
-                }
-                axios.post(
-                  `https://scheduler-project-backend.herokuapp.com/schedule/add`,
+          <div className="flex items-center justify-center my-16">
+            <DayPilotScheduler
+              {...config}
+              onEventResized={(args) => {
+                let id = args.e.data._id;
+                const promiseEvents = axios.put(
+                  `https://scheduler-project-backend.herokuapp.com/schedule/${id}`,
                   {
-                    id: DayPilot.guid(),
-                    text: modal.result,
-                    start: args.start.value,
-                    end: args.end.value,
-                    resource: args.resource,
+                    start: args.newStart,
+                    end: args.newEnd,
                   }
                 );
-              });
-            }}
-            ref={(component) => {
-              this.scheduler = component && component.control;
-            }}
-          />
-          {/* </div> */}
+              }}
+              onEventMoved={(args) => {
+                let id = args.e.data._id;
+                const promiseEvents = axios.put(
+                  `https://scheduler-project-backend.herokuapp.com/schedule/${id}`,
+                  {
+                    id: args.e.data.id,
+                    start: args.newStart,
+                    end: args.newEnd,
+                    resource: args.newResource,
+                  }
+                );
+              }}
+              onTimeRangeSelected={(args) => {
+                DayPilot.Modal.prompt("New event name", "Event").then(
+                  (modal) => {
+                    // this.scheduler.clearSelection();
+                    if (!modal.result) {
+                      return;
+                    }
+                    axios.post(
+                      `https://scheduler-project-backend.herokuapp.com/schedule/add`,
+                      {
+                        id: DayPilot.guid(),
+                        text: modal.result,
+                        start: args.start.value,
+                        end: args.end.value,
+                        resource: args.resource,
+                      }
+                    );
+                  }
+                );
+              }}
+              ref={(component) => {
+                this.scheduler = component && component.control;
+              }}
+            />
+          </div>
         </div>
         <this.dayBtns />
         <div className="flex items-center justify-center my-8">

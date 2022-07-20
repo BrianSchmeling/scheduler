@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { useState, useEffect } from "react";
 import Nav from "../NavBar/NavBar";
+import { DayPilot } from "daypilot-pro-react";
+import axios from "axios";
 
 class Home extends Component {
   constructor(props) {
@@ -23,6 +25,36 @@ class Home extends Component {
     });
   }
 
+  clockOut = () => {
+    DayPilot.Modal.prompt("Clock Out", "Name").then((modal) => {
+      if (!modal.result) {
+        return;
+      }
+      axios.post(
+        `https://scheduler-project-backend.herokuapp.com/clockOut/add`,
+        {
+          name: modal.result,
+          time: this.state.dateTime,
+        }
+      );
+    });
+  };
+
+  clockIn = () => {
+    DayPilot.Modal.prompt("Clock In", "Name").then((modal) => {
+      if (!modal.result) {
+        return;
+      }
+      axios.post(
+        `https://scheduler-project-backend.herokuapp.com/clockIn/add`,
+        {
+          name: modal.result,
+          time: this.state.dateTime,
+        }
+      );
+    });
+  };
+
   render() {
     return (
       <div>
@@ -33,10 +65,20 @@ class Home extends Component {
           </div>
         </div>
         <div className="flex items-center justify-center my-16">
-          <button className="mx-4 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+          <button
+            onClick={(args) => {
+              this.clockIn(args);
+            }}
+            className="mx-4 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+          >
             Clock in
           </button>
-          <button className="mx-4 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+          <button
+            onClick={(args) => {
+              this.clockOut(args);
+            }}
+            className="mx-4 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+          >
             Clock out
           </button>
         </div>

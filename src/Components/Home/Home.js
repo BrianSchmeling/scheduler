@@ -13,6 +13,8 @@ class Home extends Component {
     };
   }
 
+  //Controls the clock on the homepage, which is used to record when an employee clocking in or out for their shift
+
   componentDidMount() {
     this.intervalID = setInterval(() => this.tick(), 1000);
   }
@@ -25,6 +27,7 @@ class Home extends Component {
     });
   }
 
+  //Create a modal when the employee clicks on 'Clock Out' and records their name and the time of their punch
   clockOut = () => {
     DayPilot.Modal.prompt("Clock Out", "Name").then((modal) => {
       if (!modal.result) {
@@ -40,6 +43,7 @@ class Home extends Component {
     });
   };
 
+  //Create a modal when the employee clicks on 'Clock In' and records their name and the time of their punch
   clockIn = () => {
     DayPilot.Modal.prompt("Clock In", "Name").then((modal) => {
       if (!modal.result) {

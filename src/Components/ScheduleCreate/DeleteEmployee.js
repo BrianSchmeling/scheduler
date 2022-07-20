@@ -7,6 +7,7 @@ class DeleteEmployee extends Component {
     super(props);
   }
 
+  //This function allows you to delete an employee by clicking the 'Delete Employee' button
   deleteEmployee = () => {
     DayPilot.Modal.prompt("Delete Employee Name:", "Name").then((modal) => {
       if (!modal.result) {

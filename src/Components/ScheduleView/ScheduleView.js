@@ -7,6 +7,7 @@ class Scheduler extends Component {
   constructor(props) {
     super(props);
 
+    //Rules to determine the layout of the schedule
     this.state = {
       startDate: DayPilot.Date.today().firstDayOfWeek(),
       days: 1,
@@ -21,7 +22,6 @@ class Scheduler extends Component {
       cellwidth: "50px",
       resources: [],
       events: [],
-      // eventDeleteHandling: "Update",
     };
   }
 
@@ -29,13 +29,12 @@ class Scheduler extends Component {
     this.loadData();
   }
 
+  //Loads the schedule from the database, and posts the information to the classes state above.
   async loadData() {
-    const start = this.scheduler.visibleStart();
-    const end = this.scheduler.visibleEnd();
-    const promiseResources = axios.get(
+    const promiseResources = await axios.get(
       "https://scheduler-project-backend.herokuapp.com/employee"
     );
-    const promiseEvents = axios.get(
+    const promiseEvents = await axios.get(
       "https://scheduler-project-backend.herokuapp.com/schedule"
     );
     const [{ data: events }, { data: resources }] = await Promise.all([
@@ -52,6 +51,7 @@ class Scheduler extends Component {
     console.log(this.state.events);
   }
 
+  //Controls the buttons which change the day forwards and backwards when on the day view
   clickLastDay() {
     const next = this.state.startDate.addDays(-1);
     this.setState({
@@ -71,12 +71,10 @@ class Scheduler extends Component {
     return (
       <div>
         <Nav />
-        {/* <div>
-          <DayChooser onChange={(args) => this.zoomChange(args)} />
-        </div> */}
         <div className="flex items-center justify-center my-16">
           <DayPilotScheduler
             {...config}
+            //Requirements for DayPilot
             ref={(component) => {
               this.scheduler = component && component.control;
             }}

@@ -8,6 +8,7 @@ class AddEmployee extends Component {
     super(props);
   }
 
+  //Controls the function to add a new employee to the schedule when clicking on the 'Add Employee' button
   addEmployee = () => {
     DayPilot.Modal.prompt("New Employee", "Name").then((modal) => {
       if (!modal.result) {

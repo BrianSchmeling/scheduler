@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+//This class controls the radoi buttons on the Create Schedule page, which changes the view from Week to Day
+
 class Zoom extends Component {
   constructor(props) {
     super(props);
@@ -23,7 +25,7 @@ class Zoom extends Component {
   render() {
     return (
       <span className="toolbar-item">
-        Zoom:
+        Scale:
         <label>
           <input
             type="radio"

@@ -2,6 +2,9 @@
 
 Scheduler is an app to schedule employee shifts, and a timeclock for employees to punch in and out for their shifts
 
+<img width="1508" alt="image" src="https://user-images.githubusercontent.com/99563824/179983430-a9aadec2-829f-4e07-996c-b159bb2348f4.png">
+
+
 ##Technology:
 
 HTML, CSS, Javascript, React, Mongoose, Express, Tailwind, Axios, DayPilot
